@@ -9,6 +9,11 @@ import { Chords } from '../../../api/chords.js';
 class Create extends Component {
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      value: 'Preview of Chords'
+    };
   }
 
   handleSubmit(event) {
@@ -23,6 +28,16 @@ class Create extends Component {
     // Clear form
     ReactDOM.findDOMNode(this.refs.titleInput).value = '';
     ReactDOM.findDOMNode(this.refs.chordTextarea).value = '';
+  }
+
+  handleChange(e) {
+    this.setState({value: e.target.value});
+  }
+
+  getPreview() {
+    return {
+      __html: this.state.value
+    };
   }
 
   render() {
@@ -52,7 +67,8 @@ class Create extends Component {
                         className="form-control"
                         rows="20"
                         ref="chordTextarea"
-                        placeholder="Enter chord here">
+                        placeholder="Enter chord here"
+                        onChange={this.handleChange}>
                       </textarea>
 
                       <br />
@@ -62,9 +78,11 @@ class Create extends Component {
                   </div>
 
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                    <form>
-                      <p className="lead">Preview</p>
-                    </form>
+                    <p className="lead">Preview</p>
+
+                    <p
+                      dangerouslySetInnerHTML={this.getPreview()}
+                    />
                   </div>
 
                 </div>
