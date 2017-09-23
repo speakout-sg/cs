@@ -15,18 +15,18 @@ export default class Navigation extends Component {
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">C4C</a>
+                <a className="navbar-brand" href="/">C4C</a>
             </div>
             <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul className="nav navbar-nav">
                     <li>
-                        <a href="#">Create</a>
+                        <a href="/create">Create</a>
                     </li>
                     <li>
-                        <a href="#">Manage</a>
+                        <a href="/manage">Manage</a>
                     </li>
                     <li>
-                        <a href="#">Transpose</a>
+                        <a href="/transpose">Transpose</a>
                     </li>
                 </ul>
             </div>
