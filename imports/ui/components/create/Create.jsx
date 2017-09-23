@@ -10,9 +10,12 @@ class Create extends Component {
   constructor(props) {
     super(props);
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handlePreviewChange = this.handlePreviewChange.bind(this);
+
     this.state = {
-      value: 'Preview of Chords'
+      preview: 'Preview of Chords',
+      title: 'Preview Title'
     };
   }
 
@@ -30,13 +33,31 @@ class Create extends Component {
     ReactDOM.findDOMNode(this.refs.chordTextarea).value = '';
   }
 
-  handleChange(e) {
-    this.setState({value: e.target.value});
+  handlePreviewChange(e) {
+    this.setState({
+      preview: e.target.value
+    });
+  }
+
+  handleTitleChange(e) {
+    this.setState({
+      title: e.target.value
+    });
+  }
+
+  getTitle() {
+    return {
+      __html: this.state.title
+    };
   }
 
   getPreview() {
+    let preview = this.state.preview;
+
+    preview = preview.replace(/\n/g, '<br/>')
+
     return {
-      __html: this.state.value
+      __html: preview
     };
   }
 
@@ -59,6 +80,7 @@ class Create extends Component {
                         type="text"
                         ref="titleInput"
                         placeholder="Enter song title here"
+                        onChange={this.handleTitleChange.bind(this)}
                       />
 
                       <br />
@@ -68,7 +90,7 @@ class Create extends Component {
                         rows="20"
                         ref="chordTextarea"
                         placeholder="Enter chord here"
-                        onChange={this.handleChange}>
+                        onChange={this.handlePreviewChange.bind(this)}>
                       </textarea>
 
                       <br />
@@ -78,7 +100,10 @@ class Create extends Component {
                   </div>
 
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                    <p className="lead">Preview</p>
+                    <p
+                      className="capitalize"
+                      dangerouslySetInnerHTML={this.getTitle()}
+                    />
 
                     <p
                       dangerouslySetInnerHTML={this.getPreview()}
