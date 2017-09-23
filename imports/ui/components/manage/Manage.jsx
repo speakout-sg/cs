@@ -1,8 +1,28 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { createContainer } from 'meteor/react-meteor-data';
+
+import { Chords } from '../../../api/chords';
+import Chord from '../Chord.jsx';
 
 // manage chords library
-export default class Manage extends Component {
+class Manage extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  renderChords() {
+    let chords = this.props.chords;
+    return chords.map((chord) => {
+      return (
+        <Chord
+          key={chord._id}
+          chord={chord}
+        />
+      );
+    });
+  }
+
   render() {
     return (
 
@@ -15,8 +35,9 @@ export default class Manage extends Component {
 
                   <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
                     List the chords here
-                  </div>
 
+                    {this.renderChords()}
+                  </div>
                 </div>
               </div>
           </div>
@@ -24,3 +45,15 @@ export default class Manage extends Component {
     );
   }
 }
+
+Manage.propTypes = {
+  chords: PropTypes.array.isRequired,
+};
+
+export default createContainer(() => {
+  Meteor.subscribe('chords');
+
+  return {
+    chords: Chords.find({}, { sort: {} }).fetch(),
+  };
+}, Manage);
