@@ -99,13 +99,14 @@ class Create extends Component {
                     </form>
                   </div>
 
-                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
+                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left">
                     <p
-                      className="capitalize"
+                      className="lead text-capitalize"
                       dangerouslySetInnerHTML={this.getTitle()}
                     />
 
                     <p
+                      className="chord-display"
                       dangerouslySetInnerHTML={this.getPreview()}
                     />
                   </div>
