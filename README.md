@@ -42,5 +42,8 @@ meteor add jquery
 ## ecma
 meteor add ecmascript
 
+## react router
+meteor npm install --save react-router history
+
 ## Developer Notes
 As Bootstrap 4 is throwing error on jQuery import, and a fix has yet been found, this project will use Bootstrap 3 technology for it's template.
