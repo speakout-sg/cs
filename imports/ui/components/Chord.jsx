@@ -6,7 +6,7 @@ import classnames from 'classnames';
 export default class Chord extends Component {
   render() {
     return (
-      <p className="title">
+      <p className="title text-capitalize">
         {this.props.chord.title}
       </p>
     );

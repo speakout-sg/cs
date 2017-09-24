@@ -14,7 +14,7 @@ class Create extends Component {
     this.handlePreviewChange = this.handlePreviewChange.bind(this);
 
     this.state = {
-      preview: 'Preview of Chords',
+      preview: 'Preview Chords',
       title: 'Preview Title'
     };
   }
@@ -67,52 +67,50 @@ class Create extends Component {
         /* Page Content */
         <div className="container-fluid">
           <div className="row">
-              <div className="col-lg-12 text-center">
-                <div>
-                  <h1>Create</h1>
+            <div className="col-xs-12 text-left">
+              <h2>CREATE YOUR CHORD</h2>
+            </div>
+          </div>
 
-                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-center">
-                    <form onSubmit={this.handleSubmit.bind(this)}>
-                      <p className="lead">Enter your chords here</p>
+          <div className="row">
+            <div className="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <form onSubmit={this.handleSubmit.bind(this)}>
+                <input
+                  className="form-control"
+                  type="text"
+                  ref="titleInput"
+                  placeholder="Enter song title here"
+                  onChange={this.handleTitleChange.bind(this)}
+                />
 
-                      <input
-                        className="form-control"
-                        type="text"
-                        ref="titleInput"
-                        placeholder="Enter song title here"
-                        onChange={this.handleTitleChange.bind(this)}
-                      />
+                <br />
 
-                      <br />
+                <textarea
+                  className="form-control"
+                  ref="chordTextarea"
+                  placeholder="Enter chord here"
+                  rows="25"
+                  onChange={this.handlePreviewChange.bind(this)}>
+                </textarea>
 
-                      <textarea
-                        className="form-control"
-                        rows="20"
-                        ref="chordTextarea"
-                        placeholder="Enter chord here"
-                        onChange={this.handlePreviewChange.bind(this)}>
-                      </textarea>
+                <br />
 
-                      <br />
+                <button type="submit" className="btn btn-primary btn-block">Create</button>
+              </form>
+            </div>
 
-                      <button type="submit" className="btn btn-primary btn-block">Create</button>
-                    </form>
-                  </div>
+            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left">
+              <p
+                className="lead text-capitalize"
+                dangerouslySetInnerHTML={this.getTitle()}
+              />
 
-                  <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12 text-left">
-                    <p
-                      className="lead text-capitalize"
-                      dangerouslySetInnerHTML={this.getTitle()}
-                    />
+              <p
+                className="chord-display"
+                dangerouslySetInnerHTML={this.getPreview()}
+              />
 
-                    <p
-                      className="chord-display"
-                      dangerouslySetInnerHTML={this.getPreview()}
-                    />
-                  </div>
-
-                </div>
-              </div>
+            </div>
           </div>
         </div>
     );
