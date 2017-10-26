@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
 import { Chords } from '../../../api/chords';
@@ -9,15 +10,34 @@ import Chord from '../Chord.jsx';
 class Library extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      selectedChord: 'not selected',
+    };
+
+    this.selectChord = this.selectChord.bind(this);
   }
 
-  renderChords() {
+  selectChord(selectedChord) {
+    this.setState({
+      selectedChord
+    });
+  }
+
+  showSelectedChord(e) {
+    return {
+      __html: this.state.selectedChord
+    };
+  }
+
+  renderChordList() {
     let chords = this.props.chords;
     return chords.map((chord) => {
       return (
         <Chord
           key={chord._id}
           chord={chord}
+          selectChord={this.selectChord.bind(this, chord.chord)}
         />
       );
     });
@@ -35,7 +55,14 @@ class Library extends Component {
           </div>
           <div className="row">
             <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-              {this.renderChords()}
+              {this.renderChordList()}
+            </div>
+
+            <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <p
+                className="chord-display"
+                dangerouslySetInnerHTML={this.showSelectedChord()}
+              />
             </div>
           </div>
         </div>
@@ -51,6 +78,6 @@ export default createContainer(() => {
   Meteor.subscribe('chords');
 
   return {
-    chords: Chords.find({}, { sort: {} }).fetch(),
+    chords: Chords.find({}, { sort: {} }).fetch()
   };
 }, Library);
